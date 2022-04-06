@@ -7,9 +7,9 @@ import 'package:sprucetool/src/to_do/model/to_do.dart';
 class Group {
   int id;
   String name;
-  List<Note> notes;
-  List<ToDo> toDoList;
-  List<Date> dates;
+  List<int> notes;
+  List<int> toDoList;
+  List<int> dates;
   Group({
     required this.id,
     required this.name,
@@ -31,9 +31,9 @@ class Group {
     return Group(
       id: id,
       name: map['name'],
-      // notes: (map.containsKey('notes')) ? map['notes'] : [],
-      // toDoList: (map.containsKey('to_do_list')) ? map['to_do_list'] : [],
-      // dates: (map.containsKey('dates')) ? map['dates'] : [],
+      notes: (map.containsKey('notes')) ? List<int>.from(map['notes']) : [],
+      toDoList: (map.containsKey('to_do_list')) ? List<int>.from(map['to_do_list']) : [],
+      dates: (map.containsKey('dates')) ? List<int>.from(map['dates']) : [],
     );
   }
 

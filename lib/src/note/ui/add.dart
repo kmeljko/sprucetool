@@ -6,17 +6,19 @@ import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:sembast/utils/sembast_import_export.dart';
 import 'package:sprucetool/src/db/controller.dart';
+import 'package:sprucetool/src/group/model/group.dart';
 import 'package:sprucetool/src/ui/home.dart';
 import 'package:sprucetool/src/util/downloader/download.dart';
 
-class GroupAdd extends StatefulWidget {
-  const GroupAdd({Key? key}) : super(key: key);
+class NoteAdd extends StatefulWidget {
+  const NoteAdd({Key? key, required this.group}) : super(key: key);
 
+  final Group group;
   @override
-  _GroupAddState createState() => _GroupAddState();
+  _NoteAddState createState() => _NoteAddState();
 }
 
-class _GroupAddState extends State<GroupAdd> {
+class _NoteAddState extends State<NoteAdd> {
   Controller controller = GetIt.I.get();
   TextEditingController textController = TextEditingController();
   @override
@@ -30,7 +32,7 @@ class _GroupAddState extends State<GroupAdd> {
               controller: textController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'Group name',
+                labelText: 'Note name',
               ),
             ),
             TextButton(
@@ -38,22 +40,11 @@ class _GroupAddState extends State<GroupAdd> {
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
               ),
               onPressed: () async {
-                await controller.addGroup(textController.text);
+                await controller.addNote(widget.group, textController.text);
                 Get.to(HomePage());
               },
               child: Text('Submit'),
             ),
-            IconButton(
-                onPressed: () async {
-                  dynamic db = await exportDatabase(controller.getDb());
-                  String text = jsonEncode(db);
-                  print(text);
-                  await download(utf8.encode(text),
-                      "backup"+DateFormat('yyyyMMddkkmm').format(DateTime.now())+".txt");
-                  Get.snackbar("Success", "",
-                      snackPosition: SnackPosition.BOTTOM);
-                },
-                icon: Icon(Icons.settings)),
           ],
         ),
       ),

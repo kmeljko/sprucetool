@@ -2,11 +2,13 @@ import 'dart:convert';
 
 class Note {
   int id;
+  String name;
   String body;
   DateTime creationTimestamp;
   DateTime lastUpdateTimestamp;
   Note({
     required this.id,
+    required this.name,
     required this.body,
     required this.creationTimestamp,
     required this.lastUpdateTimestamp,
@@ -16,18 +18,20 @@ class Note {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
+      'name': name,
       'body': body,
-      'creation_timestamp': creationTimestamp.millisecondsSinceEpoch,
-      'last_update_timestamp': lastUpdateTimestamp.millisecondsSinceEpoch,
+      'creationTimestamp': creationTimestamp.millisecondsSinceEpoch,
+      'lastUpdateTimestamp': lastUpdateTimestamp.millisecondsSinceEpoch,
     };
   }
 
   factory Note.fromMap(Map<String, dynamic> map) {
     return Note(
-      id: map['id'] ?? '',
+      id: map['id']?.toInt() ?? 0,
+      name: map['name'] ?? '',
       body: map['body'] ?? '',
-      creationTimestamp: DateTime.fromMillisecondsSinceEpoch(map['creation_timestamp']),
-      lastUpdateTimestamp: DateTime.fromMillisecondsSinceEpoch(map['last_update_timestamp']),
+      creationTimestamp: DateTime.fromMillisecondsSinceEpoch(map['creationTimestamp']??0),
+      lastUpdateTimestamp: DateTime.fromMillisecondsSinceEpoch(map['lastUpdateTimestamp']??0),
     );
   }
 

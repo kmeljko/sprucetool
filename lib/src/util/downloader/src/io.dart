@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
@@ -13,7 +15,7 @@ Future<void> download(List<int> bytes, String filename) async {
   Directory? appDocDirectory = Platform.isAndroid
       ? Directory("/storage/emulated/0/Download/")
       : await getApplicationSupportDirectory();
-  print(appDocDirectory.path+ filename);
+  print(appDocDirectory.path + filename);
   final file = File(appDocDirectory.path + filename);
   file.writeAsBytes(bytes);
 }

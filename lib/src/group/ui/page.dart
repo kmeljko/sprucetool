@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sprucetool/src/db/controller.dart';
 import 'package:sprucetool/src/group/model/group.dart';
+import 'package:sprucetool/src/group/ui/notes.dart';
 
 class GroupPage extends StatefulWidget {
   const GroupPage({Key? key, required this.group}) : super(key: key);
@@ -12,18 +14,27 @@ class GroupPage extends StatefulWidget {
 
 class _GroupPageState extends State<GroupPage> {
   Controller controller = GetIt.I.get();
-  List<String> types=["Notes", "ToDo", "Dates"];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-          child: ListView.builder(
-        itemCount: types.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(types[index]),
-          );
-        },
+          child: ListView(
+        children: [
+          GestureDetector(
+            onTap: () {
+              Get.to(GroupNotes(group: widget.group));
+            },
+            child: ListTile(
+              title: Text("Notes"),
+            ),
+          ),
+          ListTile(
+            title: Text("ToDo"),
+          ),
+          ListTile(
+            title: Text("Dates"),
+          )
+        ],
       )),
     );
   }
