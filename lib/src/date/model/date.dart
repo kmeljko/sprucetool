@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class Date {
-  String id;
+  int id;
   String name;
   DateTime date;
   String description;

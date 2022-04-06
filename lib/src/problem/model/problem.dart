@@ -8,10 +8,10 @@ class Problem extends ToDo {
   String description;
   List<Event> events;
   Problem({
-    id,
-    name,
-    creationTimestamp,
-    lastUpdateTimestamp,
+    required id,
+    required name,
+    required creationTimestamp,
+    required lastUpdateTimestamp,
     required this.date,
     required this.events,
     required this.description,
@@ -38,6 +38,8 @@ class Problem extends ToDo {
     return Problem(
       id: map['id'] ?? '',
       name: map['name'] ?? '',
+      creationTimestamp: DateTime.fromMillisecondsSinceEpoch(map['creation_timestamp']),
+      lastUpdateTimestamp: DateTime.fromMillisecondsSinceEpoch(map['last_update_timestamp']),
       date: map['date'] ?? '',
       events: map['events'] ?? '',
       description: map['description'] ?? '',

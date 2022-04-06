@@ -4,15 +4,13 @@ import 'package:sprucetool/src/to_do/model/to_do.dart';
 
 class Event extends ToDo {
   DateTime date;
-  bool done;
   String description;
   Event({
-    id,
-    name,
-    creationTimestamp,
-    lastUpdateTimestamp,
+    required id,
+    required name,
+    required creationTimestamp,
+    required lastUpdateTimestamp,
     required this.date,
-    required this.done,
     required this.description,
   }) : super(
             id: id,
@@ -23,7 +21,6 @@ class Event extends ToDo {
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
       'date': date,
-      'done': done,
       'description': description,
     };
     Map<String, dynamic> superMap = super.toMap();
@@ -38,7 +35,8 @@ class Event extends ToDo {
       id: map['id'] ?? '',
       name: map['name'] ?? '',
       date: map['date'] ?? '',
-      done: map['done'] ?? '',
+      creationTimestamp: DateTime.fromMillisecondsSinceEpoch(map['creation_timestamp']),
+      lastUpdateTimestamp: DateTime.fromMillisecondsSinceEpoch(map['last_update_timestamp']),
       description: map['description'] ?? '',
     );
   }

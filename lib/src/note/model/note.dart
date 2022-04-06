@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class Note {
-  String id;
+  int id;
   String body;
   DateTime creationTimestamp;
   DateTime lastUpdateTimestamp;

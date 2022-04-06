@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class ToDo {
-  String id;
+  int id;
   String name;
   DateTime creationTimestamp;
   DateTime lastUpdateTimestamp;
