@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sembast/utils/sembast_import_export.dart';
 import 'package:sprucetool/src/db/controller.dart';
@@ -49,7 +50,7 @@ class _GroupAddState extends State<GroupAdd> {
                   dynamic db = await exportDatabase(controller.getDb());
                   String text = jsonEncode(db);
                   await download(utf8.encode(text),
-                      "backup" + DateTime.now().toIso8601String() + ".txt");
+                      "backup"+DateFormat('yyyyMMddkkmm').format(DateTime.now())+".txt");
                   Get.snackbar("Success", "",
                       snackPosition: SnackPosition.BOTTOM);
                 },
