@@ -4,7 +4,6 @@ import 'package:path/path.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
 import 'package:sprucetool/src/db/controller.dart';
-import 'package:sprucetool/src/group/group_controller.dart';
 
 class Init {
   static Future initialize() async {
@@ -22,6 +21,6 @@ class Init {
   }
 
   static _registerRepositories() {
-    GetIt.I.registerLazySingleton<Controller>(() => GroupController());
+    GetIt.I.registerLazySingleton<Controller>(() => Controller());
   }
 }

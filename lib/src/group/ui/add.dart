@@ -1,6 +1,14 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:sembast/utils/sembast_import_export.dart';
 import 'package:sprucetool/src/db/controller.dart';
+import 'package:sprucetool/src/downloader/download.dart';
+import 'package:sprucetool/src/ui/home.dart';
 
 class GroupAdd extends StatefulWidget {
   const GroupAdd({Key? key}) : super(key: key);
@@ -32,9 +40,20 @@ class _GroupAddState extends State<GroupAdd> {
               ),
               onPressed: () async {
                 await controller.addGroup(textController.text);
+                Get.to(HomePage());
               },
               child: Text('Submit'),
-            )
+            ),
+            IconButton(
+                onPressed: () async {
+                  dynamic db = await exportDatabase(controller.getDb());
+                  String text = jsonEncode(db);
+                  await download(utf8.encode(text),
+                      "backup" + DateTime.now().toIso8601String() + ".txt");
+                  Get.snackbar("Success", "",
+                      snackPosition: SnackPosition.BOTTOM);
+                },
+                icon: Icon(Icons.settings)),
           ],
         ),
       ),
