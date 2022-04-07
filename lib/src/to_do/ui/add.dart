@@ -6,6 +6,7 @@ import 'package:sprucetool/src/group/model/group.dart';
 import 'package:sprucetool/src/to_do/model/to_do.dart';
 import 'package:sprucetool/src/ui/components/appbar.dart';
 import 'package:sprucetool/src/ui/home.dart';
+import 'package:sprucetool/src/util/values/colors.dart';
 
 class ToDoAdd extends StatefulWidget {
   const ToDoAdd({Key? key, this.group, this.todo}) : super(key: key);
@@ -32,14 +33,14 @@ class _ToDoAddState extends State<ToDoAdd> {
               TextField(
                 controller: textController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
+                  
                   labelText: 'ToDo name',
                 ),
               ),
               TextButton(
                 style: ButtonStyle(
                   foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.blue),
+                      MaterialStateProperty.all<Color>(AppColors.textColor),
                 ),
                 onPressed: () async {
                   if (widget.group != null) {

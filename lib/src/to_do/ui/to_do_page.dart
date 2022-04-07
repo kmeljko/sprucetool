@@ -4,7 +4,9 @@ import 'package:get_it/get_it.dart';
 import 'package:sprucetool/src/db/controller.dart';
 import 'package:sprucetool/src/to_do/model/to_do.dart';
 import 'package:sprucetool/src/to_do/ui/add.dart';
+import 'package:sprucetool/src/to_do/ui/to_do_list.dart';
 import 'package:sprucetool/src/ui/components/appbar.dart';
+import 'package:sprucetool/src/util/values/colors.dart';
 
 class ToDoPage extends StatefulWidget {
   const ToDoPage({Key? key, required this.todo}) : super(key: key);
@@ -17,6 +19,10 @@ class _ToDoPageState extends State<ToDoPage> {
   Controller controller = GetIt.I.get();
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  void refresh() {
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
@@ -27,7 +33,6 @@ class _ToDoPageState extends State<ToDoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: appBar("", withBack: true),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -69,14 +74,24 @@ class _ToDoPageState extends State<ToDoPage> {
                 controller.updateToDo(widget.todo);
               },
             ),
+            SizedBox(
+              height: 20,
+            ),
+            (widget.todo.children.isNotEmpty)
+                ? Text(
+                    "Children:",
+                    style: TextStyle(fontSize: 20),
+                  )
+                : Container(),
+            toDoListWidget(widget.todo.children, 0, controller, refresh)
           ],
         )),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(ToDoAdd(todo:widget.todo));
+          Get.to(ToDoAdd(todo: widget.todo));
         },
-        backgroundColor: Colors.green,
+        backgroundColor: AppColors.mainColor,
         child: const Icon(Icons.add),
       ),
     );

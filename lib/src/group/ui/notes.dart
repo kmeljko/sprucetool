@@ -7,6 +7,7 @@ import 'package:sprucetool/src/note/model/note.dart';
 import 'package:sprucetool/src/note/ui/add.dart';
 import 'package:sprucetool/src/note/ui/note_page.dart';
 import 'package:sprucetool/src/ui/components/appbar.dart';
+import 'package:sprucetool/src/util/values/colors.dart';
 
 class GroupNotes extends StatefulWidget {
   const GroupNotes({Key? key, required this.group}) : super(key: key);
@@ -17,7 +18,7 @@ class GroupNotes extends StatefulWidget {
 
 class _GroupNotesState extends State<GroupNotes> {
   Controller controller = GetIt.I.get();
-
+  TextStyle style = TextStyle(color: Colors.white);
   @override
   void initState() {
     super.initState();
@@ -26,7 +27,7 @@ class _GroupNotesState extends State<GroupNotes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(widget.group.name+" - Notes", withBack: true),
+      appBar: appBar(widget.group.name + " - Notes", withBack: true),
       body: Center(
           child: ListView.builder(
         itemCount: widget.group.notes.length,
@@ -37,16 +38,30 @@ class _GroupNotesState extends State<GroupNotes> {
               if (snapshot.connectionState == ConnectionState.done) {
                 Note note = snapshot.data as Note;
                 return GestureDetector(
-                    child: ListTile(
-                      title: Text(note.name),
-                      subtitle: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(note.body, maxLines: 1),
-                            Text("...")
-                          ]),
-                      isThreeLine: true,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.mainColor,
+                        borderRadius: BorderRadius.circular(5),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.shadowColor(),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                          ),
+                        ],
+                      ),
+                      child: ListTile(
+                        title: Text(
+                          note.name,
+                          style: style,
+                        ),
+                        subtitle: Text(
+                          note.body,
+                          maxLines: 1,
+                          style: style,
+                        ),
+                      ),
+                      margin: EdgeInsets.all(8),
                     ),
                     onTap: () {
                       Get.to(NotePage(note: note));
@@ -62,7 +77,7 @@ class _GroupNotesState extends State<GroupNotes> {
         onPressed: () {
           Get.to(NoteAdd(group: widget.group));
         },
-        backgroundColor: Colors.green,
+        backgroundColor: AppColors.mainColor,
         child: const Icon(Icons.add),
       ),
     );

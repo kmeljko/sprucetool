@@ -9,6 +9,7 @@ import 'package:sprucetool/src/db/controller.dart';
 import 'package:sprucetool/src/ui/components/appbar.dart';
 import 'package:sprucetool/src/ui/home.dart';
 import 'package:sprucetool/src/util/downloader/download.dart';
+import 'package:sprucetool/src/util/values/colors.dart';
 
 class GroupAdd extends StatefulWidget {
   const GroupAdd({Key? key}) : super(key: key);
@@ -33,13 +34,13 @@ class _GroupAddState extends State<GroupAdd> {
               TextField(
                 controller: textController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
+                  
                   labelText: 'Group name',
                 ),
               ),
               TextButton(
                 style: ButtonStyle(
-                  foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                  foregroundColor: MaterialStateProperty.all<Color>(AppColors.textColor),
                 ),
                 onPressed: () async {
                   await controller.addGroup(textController.text);
@@ -65,7 +66,7 @@ class _GroupAddState extends State<GroupAdd> {
                     Get.snackbar("Success", "",
                         snackPosition: SnackPosition.BOTTOM);
                   },
-                  icon: Icon(Icons.settings)),
+                  icon: Icon(Icons.settings, color: AppColors.textColor,)),
             ],
           ),
         ),

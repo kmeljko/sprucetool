@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sprucetool/src/util/values/colors.dart';
 
 AppBar appBar(String text, {bool withBack = false}) {
   return AppBar(
@@ -16,6 +17,8 @@ AppBar appBar(String text, {bool withBack = false}) {
         : null,
     toolbarHeight: 56,
     toolbarOpacity: 0.8,
-    backgroundColor: Colors.green,
+    backgroundColor: AppColors.mainColor,
+    foregroundColor: AppColors.textColor,
+    titleTextStyle: TextStyle(color: AppColors.textColor, fontSize: 20),
   );
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sprucetool/src/db/init.dart';
 import 'package:sprucetool/src/ui/home.dart';
+import 'package:sprucetool/src/util/values/colors.dart';
 
 void main() {
   runApp(SpruceToolApp());
@@ -23,8 +24,22 @@ class _SpruceToolAppState extends State<SpruceToolApp> {
     return GetMaterialApp(
       title: 'Spruce Tool',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+          primarySwatch: AppColors.createMaterialColor(),
+          backgroundColor: AppColors.backgroundColor,
+          scaffoldBackgroundColor: AppColors.backgroundColor,
+          inputDecorationTheme: InputDecorationTheme(
+              labelStyle: TextStyle(color: AppColors.textColor),
+              border: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                      style: BorderStyle.solid, color: AppColors.textColor))),
+          listTileTheme: ListTileThemeData(textColor: AppColors.textColor),
+          textTheme: TextTheme(
+            subtitle1: TextStyle(color: AppColors.textColor),
+            bodyText1: TextStyle(),
+            bodyText2: TextStyle(),
+          ).apply(
+              bodyColor: AppColors.textColor,
+              displayColor: AppColors.textColor)),
       home: FutureBuilder(
         future: _init,
         builder: (context, snapshot) {
@@ -33,8 +48,8 @@ class _SpruceToolAppState extends State<SpruceToolApp> {
               key: UniqueKey(),
             );
           } else {
-            return Material(
-              child: Center(
+            return Scaffold(
+              body: Center(
                 child: CircularProgressIndicator(),
               ),
             );

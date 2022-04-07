@@ -5,6 +5,7 @@ import 'package:sprucetool/src/db/controller.dart';
 import 'package:sprucetool/src/group/model/group.dart';
 import 'package:sprucetool/src/ui/components/appbar.dart';
 import 'package:sprucetool/src/ui/home.dart';
+import 'package:sprucetool/src/util/values/colors.dart';
 
 class NoteAdd extends StatefulWidget {
   const NoteAdd({Key? key, required this.group}) : super(key: key);
@@ -30,14 +31,14 @@ class _NoteAddState extends State<NoteAdd> {
               TextField(
                 controller: textController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
+                  
                   labelText: 'Note name',
                 ),
               ),
               TextButton(
                 style: ButtonStyle(
                   foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.blue),
+                      MaterialStateProperty.all<Color>(AppColors.textColor),
                 ),
                 onPressed: () async {
                   await controller.addNote(widget.group, textController.text);
