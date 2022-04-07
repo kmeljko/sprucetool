@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sprucetool/src/db/controller.dart';
 import 'package:sprucetool/src/group/model/group.dart';
+import 'package:sprucetool/src/group/ui/notes.dart';
 import 'package:sprucetool/src/ui/components/appbar.dart';
 import 'package:sprucetool/src/ui/home.dart';
 import 'package:sprucetool/src/util/values/colors.dart';
@@ -31,7 +32,6 @@ class _NoteAddState extends State<NoteAdd> {
               TextField(
                 controller: textController,
                 decoration: InputDecoration(
-                  
                   labelText: 'Note name',
                 ),
               ),
@@ -42,11 +42,10 @@ class _NoteAddState extends State<NoteAdd> {
                 ),
                 onPressed: () async {
                   await controller.addNote(widget.group, textController.text);
-                  Get.offAll(
-                    HomePage(
-                      key: UniqueKey(),
-                    ),
-                  );
+                  Get.off(GroupNotes(
+                    group: widget.group,
+                    key: UniqueKey(),
+                  ));
                 },
                 child: Text('Submit'),
               ),

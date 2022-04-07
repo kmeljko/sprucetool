@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sprucetool/src/db/controller.dart';
 import 'package:sprucetool/src/group/model/group.dart';
+import 'package:sprucetool/src/group/ui/to_do_list.dart';
 import 'package:sprucetool/src/to_do/model/to_do.dart';
+import 'package:sprucetool/src/to_do/ui/to_do_page.dart';
 import 'package:sprucetool/src/ui/components/appbar.dart';
 import 'package:sprucetool/src/ui/home.dart';
 import 'package:sprucetool/src/util/values/colors.dart';
@@ -33,7 +35,6 @@ class _ToDoAddState extends State<ToDoAdd> {
               TextField(
                 controller: textController,
                 decoration: InputDecoration(
-                  
                   labelText: 'ToDo name',
                 ),
               ),
@@ -46,15 +47,22 @@ class _ToDoAddState extends State<ToDoAdd> {
                   if (widget.group != null) {
                     await controller.addToDo(
                         widget.group!, textController.text, "parent");
+                    Get.off(
+                      GroupToDoList(
+                        group: widget.group!,
+                        key: UniqueKey(),
+                      ),
+                    );
                   } else {
                     await controller.addToDoAsChild(
                         widget.todo!, textController.text, "child");
+                    Get.off(
+                      ToDoPage(
+                        key: UniqueKey(),
+                        todo: widget.todo!,
+                      ),
+                    );
                   }
-                  Get.offAll(
-                    HomePage(
-                      key: UniqueKey(),
-                    ),
-                  );
                 },
                 child: Text('Submit'),
               ),

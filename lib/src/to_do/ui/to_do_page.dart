@@ -89,7 +89,7 @@ class _ToDoPageState extends State<ToDoPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(ToDoAdd(todo: widget.todo));
+          Get.off(ToDoAdd(todo: widget.todo));
         },
         backgroundColor: AppColors.mainColor,
         child: const Icon(Icons.add),

@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:sembast/sembast.dart';
+import 'package:sembast/sembast_io.dart';
 import 'package:sprucetool/src/group/model/group.dart';
 import 'package:sprucetool/src/note/model/note.dart';
 import 'package:sprucetool/src/to_do/model/to_do.dart';
@@ -13,9 +14,9 @@ class Controller {
   //   return value[''];
   // }
 
-  // Future deleteDB() async {
-  //   await databaseFactoryIo.deleteDatabase(_database.path);
-  // }
+  Future deleteDB() async {
+    await databaseFactoryIo.deleteDatabase(_database.path);
+  }
 
   //-------GROUPS-------
   //get all groups

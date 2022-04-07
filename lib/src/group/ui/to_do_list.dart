@@ -37,7 +37,7 @@ class _GroupToDoListState extends State<GroupToDoList> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(ToDoAdd(group: widget.group));
+          Get.off(ToDoAdd(group: widget.group));
         },
         backgroundColor: AppColors.mainColor,
         child: const Icon(Icons.add),

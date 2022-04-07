@@ -64,7 +64,7 @@ class _GroupNotesState extends State<GroupNotes> {
                       margin: EdgeInsets.all(8),
                     ),
                     onTap: () {
-                      Get.to(NotePage(note: note));
+                      Get.off(NotePage(note: note));
                     });
               } else {
                 return CircularProgressIndicator();
@@ -75,7 +75,7 @@ class _GroupNotesState extends State<GroupNotes> {
       )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(NoteAdd(group: widget.group));
+          Get.off(NoteAdd(group: widget.group));
         },
         backgroundColor: AppColors.mainColor,
         child: const Icon(Icons.add),
