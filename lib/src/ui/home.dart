@@ -4,11 +4,11 @@ import 'package:get_it/get_it.dart';
 import 'package:sprucetool/src/db/controller.dart';
 import 'package:sprucetool/src/group/model/group.dart';
 import 'package:sprucetool/src/group/ui/add.dart';
-import 'package:sprucetool/src/group/ui/page.dart';
+import 'package:sprucetool/src/group/ui/group_page.dart';
+import 'package:sprucetool/src/ui/components/appbar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -16,12 +16,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Controller controller = GetIt.I.get();
   List<Group> _groups = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _loadGroups();
-  }
 
   _loadGroups() async {
     final groups = await controller.getAllGroups();
@@ -31,28 +25,42 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    _loadGroups();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: appBar("SpruceTool"),
       body: Stack(
         children: [
           Center(
-            child: GridView.count(
-              crossAxisCount: 2,
-              children: List.generate(_groups.length, (index) {
-                return GestureDetector(
-                  onTap: () {
-                    Get.to(GroupPage(
-                      group: _groups[index],
-                    ));
-                  },
-                  child: Center(
-                    child: Text(
-                      _groups[index].name,
-                      style: Theme.of(context).textTheme.headline5,
+            child: RefreshIndicator(
+              onRefresh: () async {
+                await _loadGroups();
+              },
+              child: GridView.count(
+                crossAxisCount: 2,
+                children: List.generate(_groups.length, (index) {
+                  return GestureDetector(
+                    onTap: () async {
+                      await _loadGroups();
+                      Get.to(GroupPage(
+                        group: _groups[index],
+                      ));
+                    },
+                    child: Center(
+                      child: Text(
+                        _groups[index].name,
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
                     ),
-                  ),
-                );
-              }),
+                  );
+                }),
+              ),
             ),
           ),
         ],

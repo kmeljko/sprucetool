@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:sembast/utils/sembast_import_export.dart';
 import 'package:sprucetool/src/db/controller.dart';
 import 'package:sprucetool/src/group/model/group.dart';
+import 'package:sprucetool/src/ui/components/appbar.dart';
 import 'package:sprucetool/src/ui/home.dart';
 import 'package:sprucetool/src/util/downloader/download.dart';
 
@@ -24,28 +25,37 @@ class _NoteAddState extends State<NoteAdd> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: textController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Note name',
+      appBar: appBar("Add note", withBack: true),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                controller: textController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Note name',
+                ),
               ),
-            ),
-            TextButton(
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+              TextButton(
+                style: ButtonStyle(
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.blue),
+                ),
+                onPressed: () async {
+                  await controller.addNote(widget.group, textController.text);
+                  Get.offAll(
+                    HomePage(
+                      key: UniqueKey(),
+                    ),
+                  );
+                },
+                child: Text('Submit'),
               ),
-              onPressed: () async {
-                await controller.addNote(widget.group, textController.text);
-                Get.to(HomePage());
-              },
-              child: Text('Submit'),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

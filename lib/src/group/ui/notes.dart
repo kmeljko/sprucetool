@@ -5,6 +5,8 @@ import 'package:sprucetool/src/db/controller.dart';
 import 'package:sprucetool/src/group/model/group.dart';
 import 'package:sprucetool/src/note/model/note.dart';
 import 'package:sprucetool/src/note/ui/add.dart';
+import 'package:sprucetool/src/note/ui/note_page.dart';
+import 'package:sprucetool/src/ui/components/appbar.dart';
 
 class GroupNotes extends StatefulWidget {
   const GroupNotes({Key? key, required this.group}) : super(key: key);
@@ -24,6 +26,7 @@ class _GroupNotesState extends State<GroupNotes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: appBar(widget.group.name+" - Notes", withBack: true),
       body: Center(
           child: ListView.builder(
         itemCount: widget.group.notes.length,
@@ -33,9 +36,21 @@ class _GroupNotesState extends State<GroupNotes> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 Note note = snapshot.data as Note;
-                return ListTile(
-                  title: Text(note.name),
-                );
+                return GestureDetector(
+                    child: ListTile(
+                      title: Text(note.name),
+                      subtitle: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(note.body, maxLines: 1),
+                            Text("...")
+                          ]),
+                      isThreeLine: true,
+                    ),
+                    onTap: () {
+                      Get.to(NotePage(note: note));
+                    });
               } else {
                 return CircularProgressIndicator();
               }

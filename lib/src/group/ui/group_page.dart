@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:sprucetool/src/db/controller.dart';
 import 'package:sprucetool/src/group/model/group.dart';
 import 'package:sprucetool/src/group/ui/notes.dart';
+import 'package:sprucetool/src/ui/components/appbar.dart';
 
 class GroupPage extends StatefulWidget {
   const GroupPage({Key? key, required this.group}) : super(key: key);
@@ -17,6 +18,7 @@ class _GroupPageState extends State<GroupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: appBar(widget.group.name, withBack: true),
       body: Center(
           child: ListView(
         children: [

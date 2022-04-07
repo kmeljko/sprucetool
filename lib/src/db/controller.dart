@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:sembast/sembast.dart';
+import 'package:sembast/sembast_io.dart';
 import 'package:sprucetool/src/group/model/group.dart';
 import 'package:sprucetool/src/note/model/note.dart';
 
@@ -19,6 +20,10 @@ class Controller {
   // final StoreRef _store = intMapStoreFactory.store("group_store");
   //   final value = await _store.record(group.id).get(_database);
   //   return value[''];
+  // }
+
+  // Future deleteDB() async {
+  //   await databaseFactoryIo.deleteDatabase(_database.path);
   // }
 
   Future<int> addGroup(String name) async {
@@ -48,7 +53,11 @@ class Controller {
   Future<Note> getNote(int id) async {
     StoreRef _store = intMapStoreFactory.store("notes_store");
     var note=await _store.record(id).get(_database);
-    return Note.fromMap(note);
+    return Note.fromMap(id, note);
+  }
+  Future updateNote(Note note) async {
+    StoreRef _store = intMapStoreFactory.store("notes_store");
+    _store.record(note.id).update(_database, note.toMap());
   }
 
   Database getDb() {

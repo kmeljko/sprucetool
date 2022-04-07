@@ -17,7 +17,6 @@ class Note {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'name': name,
       'body': body,
       'creationTimestamp': creationTimestamp.millisecondsSinceEpoch,
@@ -25,9 +24,9 @@ class Note {
     };
   }
 
-  factory Note.fromMap(Map<String, dynamic> map) {
+  factory Note.fromMap(int id, Map<String, dynamic> map) {
     return Note(
-      id: map['id']?.toInt() ?? 0,
+      id: id,
       name: map['name'] ?? '',
       body: map['body'] ?? '',
       creationTimestamp: DateTime.fromMillisecondsSinceEpoch(map['creationTimestamp']??0),
@@ -36,6 +35,4 @@ class Note {
   }
 
   String toJson() => json.encode(toMap());
-
-  factory Note.fromJson(String source) => Note.fromMap(json.decode(source));
 }
