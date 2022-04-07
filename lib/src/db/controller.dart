@@ -99,6 +99,29 @@ class Controller {
     _store.record(group.id).update(_database, group.toMap());
   }
 
+
+  //add new to do as child to other to do
+  Future addToDoAsChild(ToDo parent, String name, String type) async {
+    StoreRef _store = intMapStoreFactory.store("todo_store");
+    var todo = ToDo(
+        id: 0,
+        name: name,
+        creationTimestamp: DateTime.now(),
+        lastUpdateTimestamp: DateTime.now(),
+        type: type,
+        description: "",
+        done: false,
+        children: []);
+    int id = await _store.add(_database, todo.toMap());
+
+    if (parent.children.isEmpty) {
+      parent.children = [];
+    }
+
+    parent.children.add(id);
+    _store.record(parent.id).update(_database, parent.toMap());
+  }
+
   //update to do
   Future updateToDo(ToDo todo) async {
     StoreRef _store = intMapStoreFactory.store("todo_store");

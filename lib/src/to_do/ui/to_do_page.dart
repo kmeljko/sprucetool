@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sprucetool/src/db/controller.dart';
 import 'package:sprucetool/src/to_do/model/to_do.dart';
+import 'package:sprucetool/src/to_do/ui/add.dart';
 import 'package:sprucetool/src/ui/components/appbar.dart';
 
 class ToDoPage extends StatefulWidget {
@@ -69,6 +71,13 @@ class _ToDoPageState extends State<ToDoPage> {
             ),
           ],
         )),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.to(ToDoAdd(todo:widget.todo));
+        },
+        backgroundColor: Colors.green,
+        child: const Icon(Icons.add),
       ),
     );
   }
