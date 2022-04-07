@@ -55,6 +55,7 @@ class _GroupAddState extends State<GroupAdd> {
                   onPressed: () async {
                     dynamic db = await exportDatabase(controller.getDb());
                     String text = jsonEncode(db);
+                    // ignore: avoid_print
                     print(text);
                     await download(
                         utf8.encode(text),

@@ -6,21 +6,21 @@ import 'package:sprucetool/src/group/model/group.dart';
 import 'package:sprucetool/src/ui/components/appbar.dart';
 import 'package:sprucetool/src/ui/home.dart';
 
-class NoteAdd extends StatefulWidget {
-  const NoteAdd({Key? key, required this.group}) : super(key: key);
+class ToDoAdd extends StatefulWidget {
+  const ToDoAdd({Key? key, required this.group}) : super(key: key);
 
   final Group group;
   @override
-  _NoteAddState createState() => _NoteAddState();
+  _ToDoAddState createState() => _ToDoAddState();
 }
 
-class _NoteAddState extends State<NoteAdd> {
+class _ToDoAddState extends State<ToDoAdd> {
   Controller controller = GetIt.I.get();
   TextEditingController textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar("Add note", withBack: true),
+      appBar: appBar("Add to do", withBack: true),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(
@@ -31,7 +31,7 @@ class _NoteAddState extends State<NoteAdd> {
                 controller: textController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Note name',
+                  labelText: 'ToDo name',
                 ),
               ),
               TextButton(
@@ -40,7 +40,8 @@ class _NoteAddState extends State<NoteAdd> {
                       MaterialStateProperty.all<Color>(Colors.blue),
                 ),
                 onPressed: () async {
-                  await controller.addNote(widget.group, textController.text);
+                  await controller.addToDo(
+                      widget.group, textController.text, "parent");
                   Get.offAll(
                     HomePage(
                       key: UniqueKey(),

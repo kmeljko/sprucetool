@@ -5,32 +5,54 @@ class ToDo {
   String name;
   DateTime creationTimestamp;
   DateTime lastUpdateTimestamp;
+  String type;
+  String description;
+  //when
+  DateTime? date;
+  //is done?
+  bool done;
+  //children todo
+  List<int> children;
+
   ToDo({
     required this.id,
     required this.name,
     required this.creationTimestamp,
     required this.lastUpdateTimestamp,
+    required this.type,
+    required this.description,
+    this.date,
+    required this.done,
+    required this.children,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'name': name,
-      'creation_timestamp': creationTimestamp.millisecondsSinceEpoch,
-      'last_update_timestamp': lastUpdateTimestamp.millisecondsSinceEpoch,
+      'creationTimestamp': creationTimestamp.millisecondsSinceEpoch,
+      'lastUpdateTimestamp': lastUpdateTimestamp.millisecondsSinceEpoch,
+      'type': type,
+      'description': description,
+      'date': date?.millisecondsSinceEpoch,
+      'done': done,
+      'children': children,
     };
   }
 
-  factory ToDo.fromMap(Map<String, dynamic> map) {
+  factory ToDo.fromMap(int id,Map<String, dynamic> map) {
     return ToDo(
-      id: map['id'] ?? '',
+      id: id,
       name: map['name'] ?? '',
-      creationTimestamp: DateTime.fromMillisecondsSinceEpoch(map['creation_timestamp']),
-      lastUpdateTimestamp: DateTime.fromMillisecondsSinceEpoch(map['last_update_timestamp']),
+      creationTimestamp: DateTime.fromMillisecondsSinceEpoch(map['creationTimestamp']),
+      lastUpdateTimestamp: DateTime.fromMillisecondsSinceEpoch(map['lastUpdateTimestamp']),
+      type: map['type'] ?? '',
+      description: map['description'] ?? '',
+      date: map['date'] != null ? DateTime.fromMillisecondsSinceEpoch(map['date']) : null,
+      done: map['done'] ?? false,
+      children: (map.containsKey('children')) ? List<int>.from(map['children']) : [],
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory ToDo.fromJson(String source) => ToDo.fromMap(json.decode(source));
 }

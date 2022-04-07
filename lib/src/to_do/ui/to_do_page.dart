@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sprucetool/src/db/controller.dart';
-import 'package:sprucetool/src/note/model/note.dart';
+import 'package:sprucetool/src/to_do/model/to_do.dart';
 import 'package:sprucetool/src/ui/components/appbar.dart';
 
-class NotePage extends StatefulWidget {
-  const NotePage({Key? key, required this.note}) : super(key: key);
-  final Note note;
+class ToDoPage extends StatefulWidget {
+  const ToDoPage({Key? key, required this.todo}) : super(key: key);
+  final ToDo todo;
   @override
-  _NotePageState createState() => _NotePageState();
+  _ToDoPageState createState() => _ToDoPageState();
 }
 
-class _NotePageState extends State<NotePage> {
+class _ToDoPageState extends State<ToDoPage> {
   Controller controller = GetIt.I.get();
   TextEditingController titleController = TextEditingController();
-  TextEditingController bodyController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
   @override
   void initState() {
     super.initState();
-    titleController.text = widget.note.name;
-    bodyController.text = widget.note.body;
+    titleController.text = widget.todo.name;
+    descriptionController.text = widget.todo.description;
   }
 
   @override
@@ -43,15 +43,15 @@ class _NotePageState extends State<NotePage> {
                 labelText: 'Title',
               ),
               onChanged: (s) {
-                widget.note.name = s;
-                controller.updateNote(widget.note);
+                widget.todo.name = s;
+                controller.updateToDo(widget.todo);
               },
             ),
             SizedBox(
               height: 20,
             ),
             TextField(
-              controller: bodyController,
+              controller: descriptionController,
               keyboardType: TextInputType.multiline,
               maxLines: null,
               decoration: InputDecoration(
@@ -63,8 +63,8 @@ class _NotePageState extends State<NotePage> {
                 labelText: 'Body',
               ),
               onChanged: (s) {
-                widget.note.body = s;
-                controller.updateNote(widget.note);
+                widget.todo.description = s;
+                controller.updateToDo(widget.todo);
               },
             ),
           ],

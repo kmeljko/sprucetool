@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:sprucetool/src/db/controller.dart';
 import 'package:sprucetool/src/group/model/group.dart';
 import 'package:sprucetool/src/group/ui/notes.dart';
+import 'package:sprucetool/src/group/ui/to_do_list.dart';
 import 'package:sprucetool/src/ui/components/appbar.dart';
 
 class GroupPage extends StatefulWidget {
@@ -30,11 +31,16 @@ class _GroupPageState extends State<GroupPage> {
               title: Text("Notes"),
             ),
           ),
-          ListTile(
-            title: Text("ToDo"),
+          GestureDetector(
+            onTap: () {
+              Get.to(GroupToDoList(group: widget.group));
+            },
+            child: ListTile(
+              title: Text("To do"),
+            ),
           ),
           ListTile(
-            title: Text("Dates"),
+            title: Text("Dates - not implemented"),
           )
         ],
       )),
