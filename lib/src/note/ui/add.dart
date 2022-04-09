@@ -5,7 +5,6 @@ import 'package:sprucetool/src/db/controller.dart';
 import 'package:sprucetool/src/group/model/group.dart';
 import 'package:sprucetool/src/group/ui/notes.dart';
 import 'package:sprucetool/src/ui/components/appbar.dart';
-import 'package:sprucetool/src/ui/home.dart';
 import 'package:sprucetool/src/util/values/colors.dart';
 
 class NoteAdd extends StatefulWidget {

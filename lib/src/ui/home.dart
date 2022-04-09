@@ -5,6 +5,7 @@ import 'package:sprucetool/src/db/controller.dart';
 import 'package:sprucetool/src/group/model/group.dart';
 import 'package:sprucetool/src/group/ui/add.dart';
 import 'package:sprucetool/src/group/ui/group_page.dart';
+import 'package:sprucetool/src/ui/all_to_do.dart';
 import 'package:sprucetool/src/ui/components/appbar.dart';
 import 'package:sprucetool/src/util/values/colors.dart';
 
@@ -82,12 +83,29 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.to(GroupAdd());
-        },
-        backgroundColor: AppColors.mainColor,
-        child: const Icon(Icons.add),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            heroTag: "btn1",
+            onPressed: () {
+              Get.to(AllToDoListPage());
+            },
+            backgroundColor: AppColors.mainColor,
+            child: const Icon(Icons.notes),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          FloatingActionButton(
+            heroTag: "btn2",
+            onPressed: () {
+              Get.to(GroupAdd());
+            },
+            backgroundColor: AppColors.mainColor,
+            child: const Icon(Icons.add),
+          ),
+        ],
       ),
     );
   }
