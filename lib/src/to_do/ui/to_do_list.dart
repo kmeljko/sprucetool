@@ -9,6 +9,7 @@ Widget toDoListWidget(
     List<int> toDoList, double left, Controller controller, Function setState,
     {bool showItems = true}) {
   return ListView.builder(
+    addAutomaticKeepAlives: true,
     shrinkWrap: true,
     physics: NeverScrollableScrollPhysics(),
     itemCount: toDoList.length,

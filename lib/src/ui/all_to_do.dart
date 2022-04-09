@@ -25,8 +25,9 @@ class _AllToDoListPageState extends State<AllToDoListPage> {
     setState(() => _groups = groups);
     _items = List.generate(
         _groups.length,
-        (index) =>
-            toDoListWidget(_groups[index].toDoList, 0, controller, refresh,showItems: false));
+        (index) => toDoListWidget(
+            _groups[index].toDoList, 0, controller, refresh,
+            showItems: false));
     refresh();
   }
 
@@ -53,6 +54,7 @@ class _AllToDoListPageState extends State<AllToDoListPage> {
                 await _loadGroups();
               },
               child: ListView.builder(
+                  addAutomaticKeepAlives: true,
                   itemCount: _groups.length,
                   itemBuilder: (context, index) {
                     return Column(
@@ -68,7 +70,9 @@ class _AllToDoListPageState extends State<AllToDoListPage> {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               _groups[index].name,
-                              style: TextStyle(fontSize: 25,),
+                              style: TextStyle(
+                                fontSize: 25,
+                              ),
                             ),
                           ),
                         ),
